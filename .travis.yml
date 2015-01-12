@@ -1,25 +1,20 @@
 language: java
-
 jdk:
 - oraclejdk8
 - oraclejdk7
 - openjdk7
-
 before_install:
 - sudo apt-get update -qq
 - sudo apt-get install -y perl-byacc perl
-
 before_script: wget -O fregec.jar https://github.com/Frege/frege/releases/download/3.22.324/frege3.22.324-g630677b.jar
-
 script: make YACC=pbyacc runtime 'shadow-prelude' && make YACC=pbyacc fregec.jar
-
 before_deploy: git fetch --tags
-
 deploy:
   provider: releases
   api_key:
-    secure: m/VNMOzu1KXd74t2c4ZlVd3dTNq411R8sPKrri0Yb8HhAYKJ63Gg4H844DZ5L1aRVdMBgL2cm0d5502nIi6oHyFkLRV62PTtwsFm6MaoE2HAbK6gpM3lKI64u2Qb7nIukAf8E36eIIWYc0blXZAP4psdbptJLvZAmMn+e20Fna8=
+    secure: Qr1GGB3FUJxIZUU1SOWSJVl8u2Ml2fKZHBJ6HWZ1FtopO5Kuv1+AX2+G4d2lY8mO8hDiQPEavuoQHOr/K53qe7GJdiUJnf3qzc2LNLDEB+B7REDX+DkJZIhoQKEPsEe0y3JBSd72O9slwd96gV063VR2vBp8HU5MRcm3UBC8L5c=
   file: fregec.jar
   on:
+    repo: juergenhoetzel/frege
     tags: true
     all_branches: true
